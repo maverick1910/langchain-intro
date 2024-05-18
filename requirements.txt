@@ -1,0 +1,7 @@
+fastapi~=0.89.1
+python-dotenv==0.21.0
+langchain
+langchain-openai
+langchain-community
+langchain-google-genai
+
