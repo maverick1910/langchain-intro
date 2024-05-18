@@ -1,10 +1,13 @@
 from fastapi import APIRouter
 from models.gemini_model import GeminiModel
+from models.anthropic_model import ClaudeModel
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
 
 router = APIRouter()
-open_api = GeminiModel.gemini_init()
+gemini_llm = GeminiModel.gemini_init()
+claude_llm = ClaudeModel.claude_init()
+
 parser = StrOutputParser()
 
 
@@ -17,10 +20,10 @@ def get_message(user_input: dict):
     Answer: Let's think step by step."""
     prompt = PromptTemplate.from_template(template)
 
-    chain = prompt | open_api | parser
+    chain = prompt | claude_llm | parser
 
     result = chain.invoke(user_input)
     return {
         'status': "200",
-        'data':result
+        'data': result
     }
